@@ -1,0 +1,44 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block contentLoggedIn %}
+  {% if user.is_authenticated %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+        </div>
+      </div>
+
+    Hi {{ user.username }}!
+    <br><br><br>
+    <div class="card-deck">
+      <div class="card bCardShadow"><a href="{% url 'sensor_home' %}" class="bbb"><img src="{% static 'img/a.jpg' %}" class="card-img-top" style="height: 160px;"><div class="card-body"><h4 class="card-title">Sensors</h4><p class="card-text">Details to be added</p></div><div class="card-footer"><small class="text-muted"></small></div></a></div>
+      <div class="card bCardShadow"><a href="#" class="bbb"><img src="{% static 'img/d.jpg' %}" class="card-img-top" style="height: 160px;"><div class="card-body"><h4 class="card-title">Users</h4><p class="card-text">Details to be added</p></div><div class="card-footer"><small class="text-muted"></small></div></a></div>
+      <div class="card bCardShadow"><a href="#" class="bbb"><img src="{% static 'img/c.jpg' %}" class="card-img-top" style="height: 160px;"><div class="card-body"><h4 class="card-title">Parking Marshals</h4><p class="card-text">Details to be added</p></div><div class="card-footer"><small class="text-muted"></small></div></a></div>
+      <div class="card bCardShadow"><a href="#" class="bbb"><img src="{% static 'img/b.jpeg' %}" class="card-img-top" style="height: 160px;"><div class="card-body"><h4 class="card-title">Statistics</h4><p class="card-text">Details to be added</p></div><div class="card-footer"><small class="text-muted"></small></div></a></div>
+    </div>
+
+  {% endif %}
+{% endblock %}
+
+{% block contentLoggedOut %}
+  {% if not user.is_authenticated %}
+
+    <p><h1 style="color: white;">Welcome</h1></p>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <form action="{% url 'login' %}" class="form-inline">
+      <button class="loginbutton" style="width: 260px;">LOGIN</button>
+    </form>
+    <form action="{% url 'signup' %}" class="form-inline">
+      <button class="loginbutton" style="width: 260px;">REGISTER</button>
+    </form>
+
+  {% endif %}
+{% endblock %}

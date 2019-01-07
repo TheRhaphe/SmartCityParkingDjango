@@ -1,0 +1,150 @@
+{% load static %}
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Smart Park{% endblock %}</title>
+  <link href="{% static 'bootstrap-4.2.1-dist/css/bootstrap.css' %}" rel="stylesheet">
+  <link href="{% static 'css/search.css' %}" rel="stylesheet">
+  <link href="{% static 'css/loginbutton.css' %}" rel="stylesheet">
+  <link href="{% static 'css/sidebar.css' %}" rel="stylesheet">
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+
+{% if request.path == "/" and not user.is_authenticated %}
+  <body  style="background: url({% static 'img/wallpaper2.jpg' %}) no-repeat center center fixed;
+  /* Full height */
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+{% else %}
+  <body>
+{% endif %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="background-color: #6d1e0d;">
+  <a class="navbar-brand" style="" href="{% url 'home' %}">Harare Smart City Parking</a>
+  {% if user.is_authenticated %}
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">UNDER MAINTANENCE</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Options
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <div class="container h-100">
+      <div class="d-flex justify-content-center h-100">
+        <div class="searchbar">
+          <input class="search_input" type="text" name="" placeholder="Search...">
+          <a href="#" class="search_icon"><img src="{% static 'img/search.png' %}"></i></a>
+        </div>
+      </div>
+    </div>
+      <!--
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+    </form>
+    <span class="navbar-text">
+      <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    </span>
+  </div>
+
+  {% endif %}
+</nav>
+
+<br><br><br>
+
+{% if user.is_authenticated %}
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <br>
+        <img class="rounded mx-auto d-block rounded-circle bCardShadow1" src="{% static 'img/city.jpeg' %}" style="height: 160px; width: 160px; padding: 20px;">
+        <br>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <span data-feather="home"></span>
+              Home <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file"></span>
+              Map
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="shopping-cart"></span>
+              Summary
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="shopping-cart"></span>
+              Admin Options
+            </a>
+          </li>
+        </ul>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        (c) Magis Technologies 2019
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        {% block contentLoggedIn %}
+        {% endblock %}
+      </main>
+  </div>
+</div>
+{% else %}
+
+<div class="container">
+
+  <div class="row">
+
+    <div class="col">
+    </div>
+
+    <div class="col-lg-8 col-10 col-md-4">
+      <main>
+        {% block contentLoggedOut %}
+        {% endblock %}
+      </main>
+    </div>
+
+    <div class="col">
+    </div>
+
+  </div>
+
+</div>
+
+{% endif %}
+url = {{ request.path }}
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}" ></script>
+<script src="{% static 'js/popper.min.js' %}" ></script>
+<script src="{% static 'bootstrap-4.2.1-dist/js/bootstrap.min.js' %}" ></script>
+</body>
+</html>
